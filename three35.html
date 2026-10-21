@@ -56,10 +56,19 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
 (function (root) {
   'use strict';
   const SCALE = [
-    {score: 1, label: '左图强于右图', short: '强于', hint: '左图更强'},
-    {score: 0, label: '左图与右图差不多', short: '差不多', hint: '两图相近'},
-    {score: -1, label: '左图弱于右图', short: '弱于', hint: '左图更弱'}
+    {score: 1, label: '左图更符合当前描述', short: '左图', hint: '选择左图'},
+    {score: 0, label: '两图差不多', short: '差不多', hint: '两图相近'},
+    {score: -1, label: '右图更符合当前描述', short: '右图', hint: '选择右图'}
   ];
+  const DIMENSION_WORDING = {
+    consistency:'更一致', vitality:'更有活力', fun:'更有趣',
+    intelligence:'更智能', trendiness:'更新潮', premium:'更高级'
+  };
+  function comparisonLabel(code, score) {
+    if (!DIMENSION_WORDING[code] || !SCALE.some(s=>s.score===score)) throw new Error('无效的比较答案');
+    return score === 0 ? '两图差不多' : (score === 1 ? '左图' : '右图') + DIMENSION_WORDING[code];
+  }
+  function dimensionQuestion(code) {return '哪张界面看起来' + DIMENSION_WORDING[code] + '？';}
   function makePlan(data, formNumber, orientation) {
     const form = data.forms.find(f => f.number === Number(formNumber));
     if (!form || !['A','B'].includes(orientation)) throw new Error('无效的试测问卷编号');
@@ -81,12 +90,12 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
     return {orderIndex:orientation === 'A' ? 0 : 1,order,trials};
   }
   function responseFields(trial, score) {
-    if (!SCALE.some(s => s.score === score)) throw new Error('无效的五级答案');
+    if (!SCALE.some(s => s.score === score)) throw new Error('无效的三类答案');
     return {
       response_score_left: score,
       score_for_base_left: score * (trial.left_ui === trial.base_left_ui ? 1 : -1),
       score_for_canonical_ui_1: score * (trial.left_ui === trial.canonical_ui_1 ? 1 : -1),
-      response_label: SCALE.find(s => s.score === score).label
+      response_label: comparisonLabel(trial.dimension_code, score)
     };
   }
   function csvCell(value) {
@@ -105,7 +114,7 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
     const minutes = Math.floor(seconds / 60);
     return (minutes < 100 ? String(minutes).padStart(2, '0') : String(minutes)) + ':' + String(seconds % 60).padStart(2, '0');
   }
-  root.QuestionnaireCore = {SCALE, makePlan, responseFields, toCsv, formatTime};
+  root.QuestionnaireCore = {SCALE, comparisonLabel, dimensionQuestion, makePlan, responseFields, toCsv, formatTime};
 })(typeof window === 'undefined' ? globalThis : window);
 </script>
 <script>(function () {
@@ -236,7 +245,7 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
     let mismatch = false;
     if (saved) mismatch = (formValid && saved.form_number !== requestedForm) || (['A','B'].includes(direction) && direction !== saved.orientation);
     const resume = saved ? `<section class="resume-card"><h3>${saved.stage === 'done' ? '已有一份已完成的结果' : '发现未完成的问卷'}</h3><p class="rating-hint">问卷${String(saved.form_number).padStart(2,'0')} · 已完成 ${saved.answers.length} / 105 题 · 参与者 ${escapeHtml(saved.participant_id)}${mismatch ? '<br>当前链接的问卷或方向与已存进度不同，请确认后选择。' : ''}</p><div class="actions"><button class="button button-primary" id="restore-session" type="button">${saved.stage === 'done' ? '查看并下载结果' : '继续已存问卷'}</button><button class="button button-quiet" id="discard-session" type="button">清除本机进度，重新开始</button></div></section>` : '';
-    app.innerHTML = `${resume}<div class="hero"><section class="hero-copy"><span class="eyebrow">PILOT / THREE DIMENSIONS</span><h1>看一看，<br>比较你的直观感受。</h1><p>每份问卷评价三个维度，每个维度35组界面。请根据视觉印象比较感知强弱，无需表达喜欢与否。</p><div class="stat-row"><div class="stat"><strong>3</strong><span>评价维度</span></div><div class="stat"><strong>35</strong><span>每维比较</span></div><div class="stat"><strong>105</strong><span>正式比较</span></div></div><div class="guide"><strong>作答方式</strong><p>以左图为参照，选择它强于、差不多或弱于右图。选中后点击下一题。可随时下载已答结果进行试测，无需答完整份问卷。</p></div></section><form id="setup-form" class="setup-card"><h2>开始前，确认一下</h2><p>轻量试测版 · 共3套。答案保存在本机，可随时下载已答CSV；答完后也可下载JSON。</p><label class="field"><span>问卷编号</span><select id="form-number" name="form"><option value="random">随机选择一套试测</option>${DATA.forms.map(f => `<option value="${f.number}" ${formValid && f.number === requestedForm ? 'selected' : ''}>试测 ${String(f.number).padStart(2,'0')}</option>`).join('')}</select><small>如果研究者提供了编号，请按指定编号作答。</small></label><label class="field"><span>参与者编号</span><input id="participant-id" name="participant" maxlength="60" placeholder="可留空，自动生成" autocomplete="off"><small>填写研究者提供的编号，或使用系统生成的匿名编号。</small></label><label class="field"><span>国家 / 地区</span><input id="country" name="country" required maxlength="80" placeholder="例如：中国 / South Africa" value="${escapeHtml((params.get('country') || '').slice(0,80))}" autocomplete="off"></label><label class="consent"><input type="checkbox" id="consent" required><span>我已了解作答方式，同意自愿参与，并会在结束后下载结果。</span></label><p id="setup-error" class="error" role="alert"></p><button class="button button-primary full-width" type="submit" ${saved ? 'disabled' : ''}>进入问卷 <span aria-hidden="true">→</span></button><p class="rating-hint" style="margin:14px 0 0">计时从第一组正式比较开始。无需赶时间。</p></form></div>`;
+    app.innerHTML = `${resume}<div class="hero"><section class="hero-copy"><span class="eyebrow">PILOT / THREE DIMENSIONS</span><h1>看一看，<br>比较你的直观感受。</h1><p>每份问卷评价三个维度，每个维度35组界面。请根据视觉印象比较感知强弱，无需表达喜欢与否。</p><div class="stat-row"><div class="stat"><strong>3</strong><span>评价维度</span></div><div class="stat"><strong>35</strong><span>每维比较</span></div><div class="stat"><strong>105</strong><span>正式比较</span></div></div><div class="guide"><strong>作答方式</strong><p>选择更符合当前描述的界面，例如“左图更一致”或“右图更一致”；两图接近时选“两图差不多”。可随时下载已答结果进行试测，无需答完整份问卷。</p></div></section><form id="setup-form" class="setup-card"><h2>开始前，确认一下</h2><p>轻量试测版 · 共3套。答案保存在本机，可随时下载已答CSV；答完后也可下载JSON。</p><label class="field"><span>问卷编号</span><select id="form-number" name="form"><option value="random">随机选择一套试测</option>${DATA.forms.map(f => `<option value="${f.number}" ${formValid && f.number === requestedForm ? 'selected' : ''}>试测 ${String(f.number).padStart(2,'0')}</option>`).join('')}</select><small>如果研究者提供了编号，请按指定编号作答。</small></label><label class="field"><span>参与者编号</span><input id="participant-id" name="participant" maxlength="60" placeholder="可留空，自动生成" autocomplete="off"><small>填写研究者提供的编号，或使用系统生成的匿名编号。</small></label><label class="field"><span>国家 / 地区</span><input id="country" name="country" required maxlength="80" placeholder="例如：中国 / South Africa" value="${escapeHtml((params.get('country') || '').slice(0,80))}" autocomplete="off"></label><label class="consent"><input type="checkbox" id="consent" required><span>我已了解作答方式，同意自愿参与，并会在结束后下载结果。</span></label><p id="setup-error" class="error" role="alert"></p><button class="button button-primary full-width" type="submit" ${saved ? 'disabled' : ''}>进入问卷 <span aria-hidden="true">→</span></button><p class="rating-hint" style="margin:14px 0 0">计时从第一组正式比较开始。无需赶时间。</p></form></div>`;
     if (saved) {
       document.getElementById('restore-session').onclick = async () => {
         state = saved;
@@ -278,7 +287,7 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
   }
   function showIntro() {
     const dimension = dimensionAt(0);
-    app.innerHTML = `<section class="center-card"><span class="eyebrow">READY WHEN YOU ARE</span><h1>先认识当前的评价标准。</h1><p class="muted">问卷 ${String(state.form_number).padStart(2,'0')} · 共三个维度，每维16题。每题只比较当前维度的强弱。</p><div class="dimension-list">${plan.order.map(code => `<span>${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><h2>第一个维度：${dimension.name}</h2><p class="definition-large">${dimension.definition}</p><p class="rating-hint">三个选项统一表示左图相对右图：强于、差不多、弱于。选择后，再点击“下一题”。</p><button id="start-trials" class="button button-primary" type="button">开始本维度 →</button></section>`;
+    app.innerHTML = `<section class="center-card"><span class="eyebrow">READY WHEN YOU ARE</span><h1>先认识当前的评价标准。</h1><p class="muted">问卷 ${String(state.form_number).padStart(2,'0')} · 共三个维度，每维16题。每题只比较当前维度的强弱。</p><div class="dimension-list">${plan.order.map(code => `<span>${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><h2>第一个维度：${dimension.name}</h2><p class="definition-large">${dimension.definition}</p><p class="rating-hint">选项会随维度变化，例如“左图更一致／两图差不多／右图更一致”。选择后，再点击“下一题”。</p><button id="start-trials" class="button button-primary" type="button">开始本维度 →</button></section>`;
     document.getElementById('start-trials').onclick = () => {
       state.started_at = new Date().toISOString(); state.stage = 'trial';
       logEvent('started'); persist(); render();
@@ -288,7 +297,7 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
     const trial = plan.trials[state.index];
     const dimension = dimensionAt(state.index);
     const token = renderId;
-    app.innerHTML = `<div class="progress-meta"><span>问卷 ${String(state.form_number).padStart(2,'0')} · 第 ${trial.dimension_position} / 3 个维度</span><span>已完成 ${state.answers.length} / 105 题</span></div><div class="progress-track" role="progressbar" aria-label="问卷进度" aria-valuenow="${state.answers.length}" aria-valuemin="0" aria-valuemax="105"><div class="progress-fill" style="width:${state.answers.length/105*100}%"></div></div><div class="dimension-tabs">${plan.order.map((code,i)=>`<span class="dimension-tab ${i+1===trial.dimension_position ? 'current' : i+1<trial.dimension_position ? 'done' : ''}">${i+1<trial.dimension_position ? '✓ ' : ''}${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><section aria-labelledby="trial-question"><div class="trial-heading"><div><h1 id="trial-question">左图的${dimension.name}，相比右图如何？</h1><p class="definition">${dimension.definition}</p></div><span class="trial-number">本维度 ${trial.dimension_trial_index} / 35</span></div><div class="image-grid">${[['left',trial.left_ui,'左图'],['right',trial.right_ui,'右图']].map(([side,ui,label])=>`<figure class="image-card"><figcaption><strong>${label} <span class="muted">· ${ui}</span></strong><span class="image-caption-hint">点击查看大图</span></figcaption><div class="image-stage"><img class="stimulus" id="${side}-image" alt="${label} ${ui}" tabindex="0" role="button" aria-label="放大${label} ${ui}"></div></figure>`).join('')}</div><div id="loading-status" class="loading-status" role="status">正在加载两张界面图…</div><div class="response-panel"><p class="response-prompt">以左图为参照，比较「${dimension.name}」</p><div class="choices" role="group" aria-label="三类比较">${C.SCALE.map((s,i)=>`<button class="choice" data-score="${s.score}" type="button" aria-pressed="${state.selected === s.score}" disabled aria-label="${s.label}">${s.short}<small>${i+1} · ${s.hint}</small></button>`).join('')}</div><div class="trial-actions"><p>快捷键 1—3 选择，Enter 确认。<br><span id="save-status" class="save-status">${storageWorking ? '进度自动保存在当前浏览器' : '本机保存不可用，请保持页面打开'}</span></p><button class="button button-primary" id="next-trial" type="button" disabled>${state.index === 104 ? '完成问卷' : trial.dimension_trial_index === 35 ? '完成本维度 →' : '下一题 →'}</button></div></div></section>`;
+    app.innerHTML = `<div class="progress-meta"><span>问卷 ${String(state.form_number).padStart(2,'0')} · 第 ${trial.dimension_position} / 3 个维度</span><span>已完成 ${state.answers.length} / 105 题</span></div><div class="progress-track" role="progressbar" aria-label="问卷进度" aria-valuenow="${state.answers.length}" aria-valuemin="0" aria-valuemax="105"><div class="progress-fill" style="width:${state.answers.length/105*100}%"></div></div><div class="dimension-tabs">${plan.order.map((code,i)=>`<span class="dimension-tab ${i+1===trial.dimension_position ? 'current' : i+1<trial.dimension_position ? 'done' : ''}">${i+1<trial.dimension_position ? '✓ ' : ''}${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><section aria-labelledby="trial-question"><div class="trial-heading"><div><h1 id="trial-question">${C.dimensionQuestion(dimension.code)}</h1><p class="definition">${dimension.definition}</p></div><span class="trial-number">本维度 ${trial.dimension_trial_index} / 35</span></div><div class="image-grid">${[['left',trial.left_ui,'左图'],['right',trial.right_ui,'右图']].map(([side,ui,label])=>`<figure class="image-card"><figcaption><strong>${label} <span class="muted">· ${ui}</span></strong><span class="image-caption-hint">点击查看大图</span></figcaption><div class="image-stage"><img class="stimulus" id="${side}-image" alt="${label} ${ui}" tabindex="0" role="button" aria-label="放大${label} ${ui}"></div></figure>`).join('')}</div><div id="loading-status" class="loading-status" role="status">正在加载两张界面图…</div><div class="response-panel"><p class="response-prompt">只根据「${dimension.name}」判断；两图接近时选择中间项</p><div class="choices" role="group" aria-label="三类比较">${C.SCALE.map((s,i)=>`<button class="choice" data-score="${s.score}" type="button" aria-pressed="${state.selected === s.score}" disabled aria-label="${C.comparisonLabel(dimension.code,s.score)}">${C.comparisonLabel(dimension.code,s.score)}<small>${i+1} · ${s.hint}</small></button>`).join('')}</div><div class="trial-actions"><p>快捷键 1—3 选择，Enter 确认。<br><span id="save-status" class="save-status">${storageWorking ? '进度自动保存在当前浏览器' : '本机保存不可用，请保持页面打开'}</span></p><button class="button button-primary" id="next-trial" type="button" disabled>${state.index === 104 ? '完成问卷' : trial.dimension_trial_index === 35 ? '完成本维度 →' : '下一题 →'}</button></div></div></section>`;
     const images = [document.getElementById('left-image'), document.getElementById('right-image')];
     let loaded = 0;
     let failed = false;
@@ -378,7 +387,7 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
       total_elapsed_ms: wallTime(), active_response_ms: Math.round(state.active_total_ms),
       time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timing_note: '总用时包括休息、加载和离开页面；有效作答时间仅累计两图加载完成后、页面可见且未暂停的答题时间。刷新前最后约1秒可能未保存；不等同于眼动或注意力测量。',
-      scale_note: '三类分值为有序类别，正值表示左图更强，不应直接解释为等距测量。',
+      scale_note: '三类分值为有序类别，正值表示左图更符合当前维度描述，不应直接解释为等距测量。',
       scale: C.SCALE.map(s=>({score_left:s.score,label:s.label})), dimensions: dimensionSummary};
   }
   function download(format) {
@@ -394,9 +403,9 @@ body[data-screen=trial] .trial-actions{margin-top:12px}
       '当前已用时（秒）': Math.round(elapsed) / 1000,
       '有效作答用时（秒）': Math.round(state.active_total_ms) / 1000,
       '本题用时（秒）': row.active_time_ms / 1000,
-      ...row
+      ...row, response_label:C.comparisonLabel(row.dimension_code,row.response_score_left)
     }));
-    const text = format === 'csv' ? C.toCsv(exportRows) : JSON.stringify({metadata:metadata(), responses:state.answers, events:state.events}, null, 2);
+    const text = format === 'csv' ? C.toCsv(exportRows) : JSON.stringify({metadata:metadata(), responses:state.answers.map(row=>({...row,response_label:C.comparisonLabel(row.dimension_code,row.response_score_left)})), events:state.events}, null, 2);
     const blob = new Blob([text], {type:format === 'csv' ? 'text/csv;charset=utf-8' : 'application/json;charset=utf-8'});
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href=url; link.download=base+'.'+format;
