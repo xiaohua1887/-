@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f7fc">
+  <title>界面感知试测 · 3维×35题 · 三类比较</title>
+<style>:root{--ink:#20392f;--muted:#69776e;--accent:#355e48;--accent-dark:#274735;--line:#dce3da;--paper:#fff;--bg:#f6f7f4;--soft:#edf2eb;--warning:#8a5127;font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9cc19c;outline-offset:3px}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(30px,4vw,44px);font-weight:600;letter-spacing:-1.5px;line-height:1.35}h2{font-size:28px;line-height:1.4;font-weight:600}p{line-height:1.85}a{color:var(--accent)}.site-header{max-width:1320px;margin:auto;padding:24px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;font-size:17px;font-weight:650}.brand small{display:block;font-size:9px;letter-spacing:1.8px;margin-top:5px;font-weight:500;color:var(--muted)}.brand-mark{font-size:29px;background:var(--soft);width:45px;height:45px;border-radius:13px;display:grid;place-items:center}.session-tools{display:flex;align-items:center;gap:25px}.clock{display:grid;gap:4px}.clock span{font-size:11px;color:var(--muted)}.clock strong{font-size:18px;font-weight:550;font-variant-numeric:tabular-nums;letter-spacing:.6px}.button{padding:12px 22px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font-weight:550;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.4}.button-primary{background:var(--accent);border-color:var(--accent);color:white}.button-primary:hover:not(:disabled){background:var(--accent-dark)}.button-quiet{background:transparent;font-size:13px;padding:10px 14px}.button-link{border:0;background:transparent;padding:4px;color:var(--accent);font-size:13px;text-decoration:underline}#app{max-width:1180px;margin:auto;padding:28px 36px 12px;min-height:calc(100vh - 162px)}.eyebrow{display:block;font-size:10px;letter-spacing:2.6px;color:var(--accent);font-weight:650;margin-bottom:16px}.muted{color:var(--muted)}.hero{display:grid;grid-template-columns:1.12fr 1fr;gap:68px;align-items:start;padding:35px 0 25px}.hero-copy{padding-top:22px}.hero-copy>p{color:var(--muted);max-width:470px;font-size:15px}.stat-row{display:flex;gap:32px;margin:30px 0 35px}.stat strong{font-size:28px;font-weight:550;display:block}.stat span{font-size:12px;color:var(--muted)}.guide{padding:23px 25px;background:var(--soft);border-radius:13px;font-size:13px;line-height:1.85}.guide strong{display:block;margin-bottom:8px}.guide p{margin:0}.setup-card{background:white;border:1px solid var(--line);border-radius:18px;padding:30px;box-shadow:0 12px 35px #20392f05}.setup-card h2{font-size:21px;margin-bottom:7px}.setup-card>p{font-size:13px;color:var(--muted)}.field{display:block;margin:20px 0}.field>span{display:block;font-size:13px;font-weight:600;margin-bottom:8px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);min-height:44px}.field small{display:block;margin-top:7px;font-size:11px;line-height:1.7;color:var(--muted)}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field-row .field{margin-top:0}.consent{display:flex;align-items:flex-start;gap:9px;font-size:12px;line-height:1.8;color:var(--muted);margin:20px 0}.consent input{accent-color:var(--accent);margin-top:5px}.full-width{width:100%}.notice{font-size:12px;line-height:1.8;padding:14px 17px;border-radius:9px;border:1px solid var(--line);margin-bottom:20px;background:white}.notice-warning{border-color:#ebd4bb;background:#fff8ef;color:var(--warning)}.error{color:#a13b2c;font-size:13px;line-height:1.7}.resume-card{background:var(--soft);border:1px solid #c9d9c9;padding:22px;border-radius:12px;margin-bottom:25px}.resume-card h3{margin-bottom:8px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.progress-meta{display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--muted);margin-bottom:10px}.progress-track{height:4px;background:#e2e8df;border-radius:5px;overflow:hidden}.progress-fill{height:100%;background:var(--accent);transition:width .25s}.dimension-tabs{display:flex;gap:8px;margin:18px 0 21px;flex-wrap:wrap}.dimension-tab{font-size:11px;color:var(--muted);padding:6px 11px;border:1px solid transparent;border-radius:20px}.dimension-tab.current{color:var(--accent-dark);background:#e4eddc;border-color:#d4e1cc}.dimension-tab.done{color:var(--accent)}.trial-heading{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:18px}.trial-heading h1{font-size:25px;letter-spacing:-.6px;margin-bottom:6px}.definition{font-size:12px;line-height:1.8;margin:0;color:var(--muted);max-width:760px}.trial-number{font-size:13px;color:var(--muted);white-space:nowrap}.image-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.image-card{margin:0;background:white;border:1px solid var(--line);border-radius:13px;overflow:hidden}.image-card figcaption{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0e9;padding:10px 17px;font-size:11px;color:var(--muted)}.image-card figcaption strong{font-size:12px;color:var(--ink);font-weight:550}.image-stage{display:flex;align-items:center;justify-content:center;height:clamp(280px,48vh,540px);padding:12px;background:#fdfefb;position:relative}.stimulus{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;cursor:zoom-in}.image-caption-hint{font-size:10px;color:var(--muted)}.loading-status{font-size:12px;text-align:center;color:var(--muted);min-height:21px;margin-top:10px}.response-panel{margin-top:12px}.response-prompt{font-size:12px;color:var(--muted);margin-bottom:10px;text-align:center}.choices{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.choice{border:1px solid var(--line);background:white;color:var(--ink);border-radius:9px;padding:13px 5px;min-height:67px;font-size:13px;line-height:1.55;transition:background .12s,border-color .12s}.choice small{display:block;font-size:10px;color:var(--muted);margin-top:3px}.choice:hover:not(:disabled){border-color:#99b394;background:#f1f5ee}.choice[aria-pressed=true]{background:var(--accent);color:white;border-color:var(--accent)}.choice[aria-pressed=true] small{color:#dbe7d8}.trial-actions{display:flex;align-items:center;justify-content:space-between;margin-top:17px;gap:15px}.trial-actions p{font-size:11px;color:var(--muted);margin:0}.site-footer{max-width:1250px;margin:22px auto 0;padding:18px 36px;display:flex;justify-content:space-between;gap:20px;color:#7a847c;font-size:10px;border-top:1px solid var(--line)}.center-card{max-width:740px;margin:40px auto;padding:40px;background:white;border:1px solid var(--line);border-radius:18px}.center-card .eyebrow{margin-bottom:20px}.definition-large{font-size:16px;line-height:1.9;padding:20px;background:var(--soft);border-radius:10px}.dimension-list{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.dimension-list span{font-size:12px;padding:7px 12px;background:var(--soft);border-radius:20px}.break-stats,.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:27px 0}.break-stats div,.result-stats div{padding:17px 12px;border-radius:10px;background:var(--bg)}.break-stats span,.result-stats span{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}.break-stats strong,.result-stats strong{font-size:23px;font-weight:550;font-variant-numeric:tabular-nums}.download-note{font-size:13px;color:var(--muted);margin-top:25px}.modal{border:1px solid var(--line);border-radius:17px;max-width:440px;padding:0;width:calc(100% - 40px);color:var(--ink)}.modal::backdrop,.zoom-dialog::backdrop{background:#16271fbb;backdrop-filter:blur(3px)}.modal-content{padding:35px}.modal-content h2{font-size:25px}.modal-content p{font-size:13px}.zoom-dialog{border:0;background:#f7f8f3;border-radius:12px;padding:50px 15px 15px;max-height:95vh;max-width:95vw;color:var(--ink)}.zoom-dialog img{display:block;max-height:calc(95vh - 80px);max-width:calc(95vw - 40px);object-fit:contain}.zoom-close{position:absolute;right:10px;top:8px;font-size:12px;padding:8px 12px}.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:12px 18px;border-radius:9px;max-width:90vw;font-size:12px;z-index:20}.storage-warning{max-width:1108px;margin:0 auto 10px}.save-status{font-size:10px;color:var(--muted)}.mono{font-variant-numeric:tabular-nums}.rating-hint{font-size:12px;color:var(--muted);line-height:1.9}.completion-icon{width:51px;height:51px;display:grid;place-items:center;border-radius:50%;background:var(--soft);font-size:25px;margin-bottom:23px}
+@media(min-width:1400px){#app{padding-top:35px}.image-stage{height:clamp(300px,50vh,600px)}}
+@media(max-width:760px){.site-header{padding:18px 18px;gap:10px}.brand{font-size:14px;gap:8px}.brand small{font-size:7px;letter-spacing:1px}.brand-mark{width:35px;height:35px;font-size:23px}.session-tools{gap:12px}.clock strong{font-size:15px}.secondary-clock{display:none}.session-tools .button{font-size:11px;padding:8px 9px}#app{padding:20px 18px 8px}.hero{grid-template-columns:1fr;gap:22px;padding-top:0}.hero-copy{padding-top:5px}.hero-copy>p{max-width:none}.stat-row{gap:30px;margin:20px 0}.guide{padding:18px}.setup-card{padding:23px}.trial-heading{gap:12px;align-items:start}.trial-heading h1{font-size:21px}.trial-number{font-size:11px;padding-top:5px}.definition{font-size:11px}.dimension-tabs{gap:2px;margin:13px 0 18px}.dimension-tab{font-size:10px;padding:5px 8px}.image-grid{gap:10px}.image-stage{height:clamp(230px,43vh,430px);padding:7px}.image-card figcaption{padding:8px 10px}.image-caption-hint{display:none}.choices{gap:5px}.choice{font-size:11px;padding:10px 3px;min-height:64px}.choice small{font-size:9px}.trial-actions p{max-width:50%;line-height:1.7}.site-footer{padding:17px 18px;font-size:9px}.site-footer span:last-child{max-width:50%;text-align:right}.center-card{margin:15px auto;padding:26px 22px}.break-stats,.result-stats{gap:8px}.break-stats strong,.result-stats strong{font-size:19px}.field-row{gap:10px}.progress-meta{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Reserve room for responses so a trial does not require repeated scrolling. */
+body[data-screen=trial] .site-footer{display:none}
+body[data-screen=trial] .image-stage{height:clamp(180px,calc(100dvh - 590px),600px)}
+@media(max-width:760px){body[data-screen=trial] .image-stage{height:clamp(190px,calc(100dvh - 535px),430px)}}
+@media(min-width:761px) and (max-height:900px){
+body[data-screen=trial] .site-header{padding-top:12px;padding-bottom:12px}
+body[data-screen=trial] #app{padding-top:12px}
+body[data-screen=trial] .dimension-tabs{margin-top:10px;margin-bottom:12px}
+body[data-screen=trial] .trial-heading{margin-bottom:12px}
+body[data-screen=trial] .trial-heading h1{font-size:22px;margin-bottom:4px}
+body[data-screen=trial] .image-stage{height:clamp(240px,calc(100dvh - 430px),520px)}
+body[data-screen=trial] .loading-status{margin-top:6px;min-height:18px}
+body[data-screen=trial] .response-panel{margin-top:6px}
+body[data-screen=trial] .response-prompt{display:none}
+body[data-screen=trial] .trial-actions{margin-top:12px}
+}
+
+:root{--ink:#192b4b;--muted:#6e7c94;--accent:#3868d9;--accent-dark:#264eb3;--line:#dce4f0;--bg:#f4f7fc;--soft:#edf2fc}
+.brand-mark{background:#e7eeff;color:#3868d9;border-radius:11px}.hero-copy h1{font-weight:650;letter-spacing:-1.2px}.hero{gap:76px}.setup-card{box-shadow:0 18px 55px #345c9c0a;border-radius:20px}.guide{background:#eaf0fd;border-left:3px solid #7fa0f3}.stat strong{color:#3868d9}.choices{grid-template-columns:repeat(3,1fr);gap:15px}.choice{font-size:17px;font-weight:600;min-height:69px}.choice small{font-size:11px;font-weight:400}.dimension-tab.current{background:#e4ecff;border-color:#cbdafb;color:#264eb3}.progress-fill{background:linear-gradient(90deg,#7597ef,#3868d9)}.dimension-tab.done{color:#3868d9}.image-card{background:white;box-shadow:0 4px 20px #335b8b03}.image-stage{background:#fbfcff}.result-stats div,.break-stats div{border:1px solid #e5ebf5;background:#f8faff}.partial-export{font-size:12px;padding:10px 12px}.choice:hover:not(:disabled){background:#edf2ff;border-color:#91acf1}.choice[aria-pressed=true]{background:#3868d9;border-color:#3868d9}.center-card{box-shadow:0 12px 45px #344c7307}.site-footer{color:#77849a}.brand small{letter-spacing:1.4px}
+@media(max-width:760px){.hero{gap:22px}.choices{gap:8px}.choice{font-size:15px;min-height:64px}.choice small{font-size:10px}.brand small{display:none}.brand{font-size:12px}.brand-mark{width:28px;height:28px;font-size:20px}.session-tools{gap:7px}.clock strong{font-size:13px}.session-tools .button{font-size:10px;padding:8px 7px}.partial-export{padding:8px 6px}.site-header{padding-left:14px;padding-right:14px}}
+</style>
+
+
+
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="问卷首页"><span class="brand-mark">↔</span><span>界面感知 · 试测<small>THREE DIMENSIONS / THREE CHOICES</small></span></a>
+    <div class="session-tools" id="session-tools" hidden>
+      <div class="clock"><span>总用时</span><strong id="wall-clock">00:00</strong></div>
+      <div class="clock secondary-clock"><span>有效作答</span><strong id="active-clock">00:00</strong></div>
+      <button id="partial-download" class="button button-quiet partial-export" type="button">下载已答CSV</button><button id="pause-button" class="button button-quiet" type="button">暂停休息</button>
+    </div>
+  </header>
+  <main id="app" tabindex="-1"></main>
+  <footer class="site-footer"><span>轻量试测 · 每份3维 × 35题</span><span>请根据视觉印象判断，无标准答案</span></footer>
+  <dialog id="pause-dialog" class="modal"><div class="modal-content"><span class="eyebrow">TAKE A BREAK</span><h2>休息一下，再继续。</h2><p>暂停期间不计入有效作答时间；总用时仍会继续。</p><p class="muted">进度保存在当前浏览器中。</p><button id="resume-button" class="button button-primary" type="button">继续作答</button></div></dialog>
+  <dialog id="zoom-dialog" class="zoom-dialog"><button id="close-zoom" class="button zoom-close" type="button">关闭大图 ×</button><img id="zoom-image" alt="界面放大图"></dialog>
+  <dialog id="confirm-dialog" class="modal"><div class="modal-content"><h2>开始另一份试测？</h2><p id="confirm-message"></p><div class="actions"><button id="confirm-ok" class="button button-primary" type="button">确认重新开始</button><button id="confirm-cancel" class="button" type="button">返回</button></div></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript>此问卷需要启用浏览器的 JavaScript 才能作答。</noscript>
+<script>window.QUESTIONNAIRE_DATA = {"version":"ui-pilot-3x35-three-category-1.0","dataset_hash":"d85977dde23d203727727ed1d5c5109d46df7ff09c60d051c51eafa798b980ae","dimensions":[{"code":"consistency","name":"一致性","definition":"界面内部的图标、配色、排版等元素，在视觉风格上是否协调、统一。"},{"code":"vitality","name":"活力感","definition":"界面在视觉上是否显得有朝气、有能量，给人充满活力的感觉。"},{"code":"fun","name":"趣味性","definition":"界面在视觉上是否显得有趣、生动，具有让人觉得好玩的特征。"},{"code":"intelligence","name":"智能感","definition":"界面在视觉上是否给人聪明、智能的印象。请依据外观感受判断，无需推测实际功能。"},{"code":"trendiness","name":"新潮感","definition":"界面在视觉风格上是否显得新颖、时髦，具有当下潮流的感觉。"},{"code":"premium","name":"高级感","definition":"界面在视觉上是否显得精致、考究，具有高品质的感觉。"}],"forms":[{"number":1,"dimensions":{"consistency":[["UI032","UI112"],["UI101","UI142"],["UI015","UI148"],["UI137","UI054"],["UI111","UI061"],["UI143","UI113"],["UI043","UI205"],["UI199","UI073"],["UI020","UI155"],["UI003","UI004"],["UI070","UI025"],["UI048","UI093"],["UI089","UI122"],["UI104","UI203"],["UI019","UI168"],["UI163","UI036"],["UI186","UI066"],["UI200","UI129"],["UI023","UI010"],["UI046","UI107"],["UI094","UI146"],["UI164","UI062"],["UI097","UI123"],["UI002","UI030"],["UI115","UI190"],["UI018","UI059"],["UI119","UI077"],["UI033","UI103"],["UI157","UI201"],["UI052","UI191"],["UI176","UI150"],["UI006","UI182"],["UI131","UI022"],["UI086","UI156"],["UI081","UI106"]],"trendiness":[["UI199","UI183"],["UI025","UI105"],["UI103","UI093"],["UI177","UI154"],["UI141","UI086"],["UI125","UI157"],["UI205","UI193"],["UI101","UI102"],["UI149","UI122"],["UI182","UI073"],["UI202","UI012"],["UI166","UI042"],["UI150","UI156"],["UI197","UI118"],["UI188","UI133"],["UI121","UI016"],["UI081","UI185"],["UI108","UI061"],["UI098","UI174"],["UI096","UI033"],["UI192","UI003"],["UI015","UI079"],["UI135","UI123"],["UI008","UI175"],["UI178","UI169"],["UI029","UI044"],["UI011","UI071"],["UI089","UI069"],["UI005","UI142"],["UI084","UI027"],["UI190","UI200"],["UI070","UI146"],["UI167","UI162"],["UI036","UI171"],["UI063","UI019"]],"premium":[["UI075","UI177"],["UI148","UI171"],["UI109","UI118"],["UI202","UI051"],["UI022","UI175"],["UI105","UI076"],["UI099","UI016"],["UI071","UI065"],["UI019","UI020"],["UI096","UI034"],["UI072","UI194"],["UI117","UI002"],["UI054","UI085"],["UI062","UI092"],["UI132","UI073"],["UI154","UI100"],["UI201","UI192"],["UI196","UI128"],["UI003","UI113"],["UI127","UI172"],["UI199","UI025"],["UI039","UI185"],["UI084","UI090"],["UI167","UI180"],["UI112","UI116"],["UI024","UI145"],["UI032","UI159"],["UI134","UI083"],["UI009","UI078"],["UI162","UI143"],["UI187","UI030"],["UI089","UI101"],["UI074","UI170"],["UI001","UI015"],["UI136","UI017"]]},"order":["consistency","trendiness","premium"]},{"number":2,"dimensions":{"vitality":[["UI200","UI197"],["UI172","UI035"],["UI074","UI057"],["UI043","UI052"],["UI173","UI201"],["UI020","UI100"],["UI129","UI064"],["UI029","UI058"],["UI116","UI012"],["UI189","UI199"],["UI024","UI033"],["UI045","UI048"],["UI098","UI015"],["UI117","UI070"],["UI121","UI119"],["UI113","UI150"],["UI021","UI168"],["UI170","UI022"],["UI027","UI097"],["UI205","UI094"],["UI008","UI028"],["UI096","UI090"],["UI005","UI175"],["UI084","UI101"],["UI122","UI107"],["UI018","UI124"],["UI134","UI136"],["UI013","UI182"],["UI082","UI003"],["UI167","UI060"],["UI079","UI114"],["UI076","UI181"],["UI135","UI044"],["UI023","UI049"],["UI075","UI142"]],"fun":[["UI066","UI083"],["UI123","UI147"],["UI199","UI057"],["UI102","UI173"],["UI020","UI182"],["UI144","UI105"],["UI017","UI009"],["UI118","UI193"],["UI022","UI027"],["UI014","UI184"],["UI194","UI180"],["UI016","UI139"],["UI203","UI018"],["UI006","UI138"],["UI153","UI168"],["UI064","UI151"],["UI043","UI088"],["UI070","UI166"],["UI073","UI013"],["UI035","UI095"],["UI106","UI101"],["UI056","UI128"],["UI204","UI157"],["UI108","UI044"],["UI112","UI087"],["UI078","UI081"],["UI053","UI185"],["UI141","UI140"],["UI137","UI058"],["UI008","UI065"],["UI189","UI046"],["UI042","UI124"],["UI190","UI116"],["UI176","UI148"],["UI177","UI178"]],"intelligence":[["UI113","UI184"],["UI079","UI145"],["UI102","UI165"],["UI032","UI163"],["UI056","UI082"],["UI197","UI201"],["UI005","UI183"],["UI074","UI203"],["UI038","UI024"],["UI139","UI162"],["UI166","UI204"],["UI116","UI140"],["UI008","UI194"],["UI053","UI042"],["UI043","UI112"],["UI019","UI182"],["UI125","UI108"],["UI136","UI029"],["UI144","UI054"],["UI076","UI172"],["UI130","UI003"],["UI103","UI071"],["UI131","UI046"],["UI036","UI041"],["UI067","UI087"],["UI050","UI124"],["UI027","UI147"],["UI206","UI190"],["UI004","UI098"],["UI171","UI192"],["UI135","UI101"],["UI151","UI094"],["UI199","UI035"],["UI149","UI070"],["UI198","UI084"]]},"order":["vitality","fun","intelligence"]},{"number":3,"dimensions":{"consistency":[["UI163","UI164"],["UI181","UI001"],["UI068","UI149"],["UI043","UI188"],["UI061","UI202"],["UI079","UI047"],["UI173","UI131"],["UI126","UI016"],["UI142","UI081"],["UI204","UI085"],["UI189","UI045"],["UI144","UI095"],["UI186","UI066"],["UI007","UI088"],["UI082","UI099"],["UI129","UI132"],["UI102","UI093"],["UI182","UI029"],["UI141","UI048"],["UI115","UI040"],["UI057","UI137"],["UI116","UI171"],["UI114","UI119"],["UI110","UI178"],["UI094","UI146"],["UI150","UI157"],["UI020","UI155"],["UI038","UI125"],["UI018","UI059"],["UI024","UI052"],["UI098","UI206"],["UI053","UI013"],["UI179","UI096"],["UI034","UI148"],["UI022","UI106"]],"fun":[["UI198","UI057"],["UI088","UI032"],["UI053","UI006"],["UI089","UI065"],["UI199","UI034"],["UI078","UI067"],["UI062","UI051"],["UI101","UI120"],["UI138","UI204"],["UI112","UI149"],["UI108","UI059"],["UI193","UI143"],["UI039","UI074"],["UI085","UI097"],["UI038","UI163"],["UI187","UI196"],["UI098","UI132"],["UI019","UI007"],["UI104","UI003"],["UI203","UI200"],["UI126","UI076"],["UI015","UI175"],["UI169","UI148"],["UI049","UI054"],["UI118","UI096"],["UI110","UI070"],["UI014","UI184"],["UI017","UI182"],["UI012","UI142"],["UI094","UI084"],["UI141","UI095"],["UI119","UI011"],["UI086","UI008"],["UI147","UI002"],["UI111","UI113"]],"trendiness":[["UI167","UI206"],["UI195","UI064"],["UI111","UI118"],["UI140","UI117"],["UI070","UI035"],["UI029","UI071"],["UI091","UI018"],["UI015","UI191"],["UI119","UI053"],["UI138","UI113"],["UI007","UI124"],["UI189","UI058"],["UI128","UI116"],["UI153","UI175"],["UI188","UI082"],["UI134","UI165"],["UI046","UI194"],["UI173","UI193"],["UI198","UI012"],["UI092","UI108"],["UI120","UI170"],["UI038","UI017"],["UI132","UI002"],["UI161","UI152"],["UI205","UI003"],["UI123","UI072"],["UI084","UI199"],["UI197","UI006"],["UI101","UI030"],["UI168","UI086"],["UI163","UI150"],["UI149","UI190"],["UI090","UI059"],["UI126","UI045"],["UI159","UI183"]]},"order":["consistency","fun","trendiness"]}],"images":{"UI001":"./images/UI001.png","UI002":"./images/UI002.png","UI003":"./images/UI003.png","UI004":"./images/UI004.png","UI005":"./images/UI005.png","UI006":"./images/UI006.png","UI007":"./images/UI007.png","UI008":"./images/UI008.png","UI009":"./images/UI009.png","UI010":"./images/UI010.png","UI011":"./images/UI011.png","UI012":"./images/UI012.png","UI013":"./images/UI013.png","UI014":"./images/UI014.png","UI015":"./images/UI015.png","UI016":"./images/UI016.png","UI017":"./images/UI017.png","UI018":"./images/UI018.jpg","UI019":"./images/UI019.jpg","UI020":"./images/UI020.png","UI021":"./images/UI021.png","UI022":"./images/UI022.jpg","UI023":"./images/UI023.png","UI024":"./images/UI024.png","UI025":"./images/UI025.png","UI026":"./images/UI026.png","UI027":"./images/UI027.png","UI028":"./images/UI028.png","UI029":"./images/UI029.png","UI030":"./images/UI030.jpg","UI031":"./images/UI031.png","UI032":"./images/UI032.png","UI033":"./images/UI033.jpg","UI034":"./images/UI034.png","UI035":"./images/UI035.jpg","UI036":"./images/UI036.jpg","UI037":"./images/UI037.png","UI038":"./images/UI038.png","UI039":"./images/UI039.png","UI040":"./images/UI040.png","UI041":"./images/UI041.jpg","UI042":"./images/UI042.jpg","UI043":"./images/UI043.jpg","UI044":"./images/UI044.jpg","UI045":"./images/UI045.png","UI046":"./images/UI046.png","UI047":"./images/UI047.png","UI048":"./images/UI048.png","UI049":"./images/UI049.png","UI050":"./images/UI050.png","UI051":"./images/UI051.png","UI052":"./images/UI052.png","UI053":"./images/UI053.png","UI054":"./images/UI054.png","UI055":"./images/UI055.png","UI056":"./images/UI056.png","UI057":"./images/UI057.png","UI058":"./images/UI058.png","UI059":"./images/UI059.png","UI060":"./images/UI060.png","UI061":"./images/UI061.png","UI062":"./images/UI062.png","UI063":"./images/UI063.png","UI064":"./images/UI064.png","UI065":"./images/UI065.png","UI066":"./images/UI066.png","UI067":"./images/UI067.png","UI068":"./images/UI068.png","UI069":"./images/UI069.png","UI070":"./images/UI070.png","UI071":"./images/UI071.png","UI072":"./images/UI072.png","UI073":"./images/UI073.png","UI074":"./images/UI074.png","UI075":"./images/UI075.png","UI076":"./images/UI076.png","UI077":"./images/UI077.png","UI078":"./images/UI078.png","UI079":"./images/UI079.png","UI080":"./images/UI080.png","UI081":"./images/UI081.png","UI082":"./images/UI082.png","UI083":"./images/UI083.png","UI084":"./images/UI084.png","UI085":"./images/UI085.png","UI086":"./images/UI086.png","UI087":"./images/UI087.png","UI088":"./images/UI088.png","UI089":"./images/UI089.png","UI090":"./images/UI090.png","UI091":"./images/UI091.png","UI092":"./images/UI092.png","UI093":"./images/UI093.png","UI094":"./images/UI094.png","UI095":"./images/UI095.png","UI096":"./images/UI096.png","UI097":"./images/UI097.png","UI098":"./images/UI098.png","UI099":"./images/UI099.png","UI100":"./images/UI100.png","UI101":"./images/UI101.png","UI102":"./images/UI102.png","UI103":"./images/UI103.png","UI104":"./images/UI104.png","UI105":"./images/UI105.png","UI106":"./images/UI106.png","UI107":"./images/UI107.png","UI108":"./images/UI108.png","UI109":"./images/UI109.png","UI110":"./images/UI110.png","UI111":"./images/UI111.png","UI112":"./images/UI112.png","UI113":"./images/UI113.png","UI114":"./images/UI114.png","UI115":"./images/UI115.png","UI116":"./images/UI116.png","UI117":"./images/UI117.png","UI118":"./images/UI118.png","UI119":"./images/UI119.png","UI120":"./images/UI120.png","UI121":"./images/UI121.png","UI122":"./images/UI122.png","UI123":"./images/UI123.png","UI124":"./images/UI124.png","UI125":"./images/UI125.png","UI126":"./images/UI126.png","UI127":"./images/UI127.png","UI128":"./images/UI128.png","UI129":"./images/UI129.png","UI130":"./images/UI130.png","UI131":"./images/UI131.png","UI132":"./images/UI132.png","UI133":"./images/UI133.png","UI134":"./images/UI134.png","UI135":"./images/UI135.png","UI136":"./images/UI136.png","UI137":"./images/UI137.png","UI138":"./images/UI138.png","UI139":"./images/UI139.png","UI140":"./images/UI140.png","UI141":"./images/UI141.png","UI142":"./images/UI142.png","UI143":"./images/UI143.png","UI144":"./images/UI144.png","UI145":"./images/UI145.png","UI146":"./images/UI146.png","UI147":"./images/UI147.png","UI148":"./images/UI148.png","UI149":"./images/UI149.jpg","UI150":"./images/UI150.jpg","UI151":"./images/UI151.jpg","UI152":"./images/UI152.jpg","UI153":"./images/UI153.jpg","UI154":"./images/UI154.jpg","UI155":"./images/UI155.jpg","UI156":"./images/UI156.jpg","UI157":"./images/UI157.jpg","UI158":"./images/UI158.jpg","UI159":"./images/UI159.jpg","UI160":"./images/UI160.jpg","UI161":"./images/UI161.jpg","UI162":"./images/UI162.jpg","UI163":"./images/UI163.jpg","UI164":"./images/UI164.jpg","UI165":"./images/UI165.jpg","UI166":"./images/UI166.jpg","UI167":"./images/UI167.jpg","UI168":"./images/UI168.jpg","UI169":"./images/UI169.jpeg","UI170":"./images/UI170.jpeg","UI171":"./images/UI171.png","UI172":"./images/UI172.png","UI173":"./images/UI173.png","UI174":"./images/UI174.jpeg","UI175":"./images/UI175.jpeg","UI176":"./images/UI176.jpeg","UI177":"./images/UI177.jpeg","UI178":"./images/UI178.png","UI179":"./images/UI179.png","UI180":"./images/UI180.png","UI181":"./images/UI181.png","UI182":"./images/UI182.jpg","UI183":"./images/UI183.webp","UI184":"./images/UI184.webp","UI185":"./images/UI185.webp","UI186":"./images/UI186.webp","UI187":"./images/UI187.webp","UI188":"./images/UI188.webp","UI189":"./images/UI189.webp","UI190":"./images/UI190.webp","UI191":"./images/UI191.webp","UI192":"./images/UI192.webp","UI193":"./images/UI193.webp","UI194":"./images/UI194.webp","UI195":"./images/UI195.webp","UI196":"./images/UI196.webp","UI197":"./images/UI197.webp","UI198":"./images/UI198.webp","UI199":"./images/UI199.webp","UI200":"./images/UI200.webp","UI201":"./images/UI201.webp","UI202":"./images/UI202.webp","UI203":"./images/UI203.webp","UI204":"./images/UI204.webp","UI205":"./images/UI205.webp","UI206":"./images/UI206.webp"}};</script>
+<script>/* Shared deterministic design and export rules. No network or storage access. */
+(function (root) {
+  'use strict';
+  const SCALE = [
+    {score: 1, label: '左图强于右图', short: '强于', hint: '左图更强'},
+    {score: 0, label: '左图与右图差不多', short: '差不多', hint: '两图相近'},
+    {score: -1, label: '左图弱于右图', short: '弱于', hint: '左图更弱'}
+  ];
+  function makePlan(data, formNumber, orientation) {
+    const form = data.forms.find(f => f.number === Number(formNumber));
+    if (!form || !['A','B'].includes(orientation)) throw new Error('无效的试测问卷编号');
+    const order = orientation === 'A' ? [...form.order] : [...form.order].reverse();
+    const trials = [];
+    order.forEach((code, block) => {
+      const dim = data.dimensions.find(d=>d.code === code);
+      form.dimensions[code].forEach((pair, item) => {
+        const [baseLeft,baseRight] = pair;
+        const canonical = [...pair].sort();
+        trials.push({trial_index:trials.length+1,dimension_position:block+1,
+          dimension_code:code,dimension:dim.name,dimension_trial_index:item+1,source_item_no:item+1,
+          pair_id:canonical.join('_'),canonical_ui_1:canonical[0],canonical_ui_2:canonical[1],
+          base_left_ui:baseLeft,base_right_ui:baseRight,
+          left_ui:orientation === 'A' ? baseLeft : baseRight,
+          right_ui:orientation === 'A' ? baseRight : baseLeft});
+      });
+    });
+    return {orderIndex:orientation === 'A' ? 0 : 1,order,trials};
+  }
+  function responseFields(trial, score) {
+    if (!SCALE.some(s => s.score === score)) throw new Error('无效的五级答案');
+    return {
+      response_score_left: score,
+      score_for_base_left: score * (trial.left_ui === trial.base_left_ui ? 1 : -1),
+      score_for_canonical_ui_1: score * (trial.left_ui === trial.canonical_ui_1 ? 1 : -1),
+      response_label: SCALE.find(s => s.score === score).label
+    };
+  }
+  function csvCell(value) {
+    let s = value === null || value === undefined ? '' : String(value);
+    // Preserve negative numeric codes; neutralize spreadsheet formulas in user-entered text.
+    if (typeof value === 'string' && /^[\s]*[=+@-]/.test(s)) s = "'" + s;
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  function toCsv(rows) {
+    if (!rows.length) throw new Error('没有可导出的回答');
+    const fields = Object.keys(rows[0]);
+    return '\ufeff' + [fields.map(csvCell).join(','), ...rows.map(row => fields.map(k => csvCell(row[k])).join(','))].join('\r\n');
+  }
+  function formatTime(ms) {
+    const seconds = Math.max(0, Math.floor(ms / 1000));
+    const minutes = Math.floor(seconds / 60);
+    return (minutes < 100 ? String(minutes).padStart(2, '0') : String(minutes)) + ':' + String(seconds % 60).padStart(2, '0');
+  }
+  root.QuestionnaireCore = {SCALE, makePlan, responseFields, toCsv, formatTime};
+})(typeof window === 'undefined' ? globalThis : window);
+</script>
+<script>(function () {
+  'use strict';
+  const DATA = window.QUESTIONNAIRE_DATA;
+  const C = window.QuestionnaireCore;
+  const app = document.getElementById('app');
+  const storageKey = 'ui-perception:' + location.pathname.replace(/index\.html$/, '') + ':v1';
+  const pauseDialog = document.getElementById('pause-dialog');
+  const zoomDialog = document.getElementById('zoom-dialog');
+  let state = null;
+  let plan = null;
+  let ready = false;
+  let renderId = 0;
+  let lastTick = performance.now();
+  let lastSave = 0;
+  let storageWorking = true;
+  let toastTimeout = 0;
+  let sessionLocked = false;
+  const tabId = crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random();
+  let channel = null;
+  let otherTabActive = false;
+
+  function askConfirmation(message) {
+    return new Promise(resolve=>{
+      const dialog=document.getElementById('confirm-dialog');
+      document.getElementById('confirm-message').textContent=message;
+      let settled=false;
+      const done=value=>{if(settled)return;settled=true;dialog.close();resolve(value);};
+      document.getElementById('confirm-ok').onclick=()=>done(true);
+      document.getElementById('confirm-cancel').onclick=()=>done(false);
+      dialog.oncancel=event=>{event.preventDefault();done(false);};
+      dialog.showModal();
+    });
+  }
+  document.getElementById('partial-download').onclick=()=>{
+    if(!state?.answers.length){toast('请先回答至少一道题，再下载已答结果。');return;}
+    tick();download('csv');
+  };
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
+  }
+  function randomNumber(max) {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+    return array[0] % max;
+  }
+  function toast(message) {
+    const el = document.getElementById('toast');
+    el.textContent = message;
+    el.hidden = false;
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {el.hidden = true;}, 4500);
+  }
+  function warnStorage() {
+    storageWorking = false;
+    if (document.getElementById('storage-warning')) return;
+    const el = document.createElement('div');
+    el.id = 'storage-warning';
+    el.className = 'notice notice-warning storage-warning';
+    el.textContent = '浏览器无法保存进度。请保持此页面打开，并在完成后下载结果。';
+    document.querySelector('.site-header').after(el);
+  }
+  function persist() {
+    if (!state || sessionLocked) return;
+    try {localStorage.setItem(storageKey, JSON.stringify(state));} catch {warnStorage();}
+  }
+  function readSaved() {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return null;
+      const saved = JSON.parse(raw);
+      if (saved.dataset_hash !== DATA.dataset_hash || !Array.isArray(saved.answers) || !Array.isArray(saved.events)) return null;
+      const p = C.makePlan(DATA, saved.form_number, saved.orientation);
+      if (!['intro', 'trial', 'break', 'microbreak', 'done'].includes(saved.stage) || saved.answers.length > 105 || saved.index !== saved.answers.length) return null;
+      if (saved.answers.some((row, i) => row.pair_id !== p.trials[i].pair_id || !C.SCALE.some(s => s.score === row.response_score_left))) return null;
+      if (saved.stage === 'done' && saved.answers.length !== 105) return null;
+      return saved;
+    } catch {warnStorage(); return null;}
+  }
+  function wallTime() {
+    if (!state?.started_at) return 0;
+    return Math.max(0, (state.finished_at ? Date.parse(state.finished_at) : Date.now()) - Date.parse(state.started_at));
+  }
+  function running() {return !!state && state.stage === 'trial' && ready && !state.paused && !document.hidden && !sessionLocked;}
+  function tick() {
+    const now = performance.now();
+    const delta = Math.max(0, now - lastTick);
+    lastTick = now;
+    if (running()) {
+      state.current_active_ms += delta;
+      state.active_total_ms += delta;
+    }
+    document.getElementById('wall-clock').textContent = C.formatTime(wallTime());
+    document.getElementById('active-clock').textContent = C.formatTime(state?.active_total_ms || 0);
+    if (state && now - lastSave > 1000) {persist(); lastSave = now;}
+  }
+  function logEvent(type, extra = {}) {
+    if (state) state.events.push({type, at: new Date().toISOString(), trial_index: state.index + 1, ...extra});
+  }
+  function updateTools() {
+    document.getElementById('session-tools').hidden = !state?.started_at || state.stage === 'done';
+    document.getElementById('pause-button').disabled = !state || state.stage !== 'trial' || sessionLocked;
+    tick();
+  }
+  function render() {
+    renderId++;
+    ready = false;
+    document.body.dataset.screen = state?.stage || 'setup';
+    updateTools();
+    if (!state) return showSetup();
+    if (sessionLocked) {
+      app.innerHTML = '<section class="center-card"><h2>此问卷已在另一个标签页中打开。</h2><p>请回到原标签页继续作答，避免重复记录。</p><p class="muted">关闭其他标签页后，可刷新此页面恢复已保存的进度。</p></section>';
+      return;
+    }
+    if (state.stage === 'intro') showIntro();
+    else if (state.stage === 'trial') showTrial();
+    else if ((state.stage === 'break' || state.stage === 'microbreak')) showBreak();
+    else showDone();
+    if (state.paused && state.stage === 'trial' && !pauseDialog.open) pauseDialog.showModal();
+  }
+  function showSetup() {
+    const params = new URLSearchParams(location.search);
+    const requestedForm = Number(params.get('form'));
+    const formValid = Number.isInteger(requestedForm) && requestedForm >= 1 && requestedForm <= DATA.forms.length;
+    const direction = params.get('orientation')?.toUpperCase();
+    const saved = readSaved();
+    let mismatch = false;
+    if (saved) mismatch = (formValid && saved.form_number !== requestedForm) || (['A','B'].includes(direction) && direction !== saved.orientation);
+    const resume = saved ? `<section class="resume-card"><h3>${saved.stage === 'done' ? '已有一份已完成的结果' : '发现未完成的问卷'}</h3><p class="rating-hint">问卷${String(saved.form_number).padStart(2,'0')} · 已完成 ${saved.answers.length} / 105 题 · 参与者 ${escapeHtml(saved.participant_id)}${mismatch ? '<br>当前链接的问卷或方向与已存进度不同，请确认后选择。' : ''}</p><div class="actions"><button class="button button-primary" id="restore-session" type="button">${saved.stage === 'done' ? '查看并下载结果' : '继续已存问卷'}</button><button class="button button-quiet" id="discard-session" type="button">清除本机进度，重新开始</button></div></section>` : '';
+    app.innerHTML = `${resume}<div class="hero"><section class="hero-copy"><span class="eyebrow">PILOT / THREE DIMENSIONS</span><h1>看一看，<br>比较你的直观感受。</h1><p>每份问卷评价三个维度，每个维度35组界面。请根据视觉印象比较感知强弱，无需表达喜欢与否。</p><div class="stat-row"><div class="stat"><strong>3</strong><span>评价维度</span></div><div class="stat"><strong>35</strong><span>每维比较</span></div><div class="stat"><strong>105</strong><span>正式比较</span></div></div><div class="guide"><strong>作答方式</strong><p>以左图为参照，选择它强于、差不多或弱于右图。选中后点击下一题。可随时下载已答结果进行试测，无需答完整份问卷。</p></div></section><form id="setup-form" class="setup-card"><h2>开始前，确认一下</h2><p>轻量试测版 · 共3套。答案保存在本机，可随时下载已答CSV；答完后也可下载JSON。</p><label class="field"><span>问卷编号</span><select id="form-number" name="form"><option value="random">随机选择一套试测</option>${DATA.forms.map(f => `<option value="${f.number}" ${formValid && f.number === requestedForm ? 'selected' : ''}>试测 ${String(f.number).padStart(2,'0')}</option>`).join('')}</select><small>如果研究者提供了编号，请按指定编号作答。</small></label><label class="field"><span>参与者编号</span><input id="participant-id" name="participant" maxlength="60" placeholder="可留空，自动生成" autocomplete="off"><small>填写研究者提供的编号，或使用系统生成的匿名编号。</small></label><label class="field"><span>国家 / 地区</span><input id="country" name="country" required maxlength="80" placeholder="例如：中国 / South Africa" value="${escapeHtml((params.get('country') || '').slice(0,80))}" autocomplete="off"></label><label class="consent"><input type="checkbox" id="consent" required><span>我已了解作答方式，同意自愿参与，并会在结束后下载结果。</span></label><p id="setup-error" class="error" role="alert"></p><button class="button button-primary full-width" type="submit" ${saved ? 'disabled' : ''}>进入问卷 <span aria-hidden="true">→</span></button><p class="rating-hint" style="margin:14px 0 0">计时从第一组正式比较开始。无需赶时间。</p></form></div>`;
+    if (saved) {
+      document.getElementById('restore-session').onclick = async () => {
+        state = saved;
+        plan = C.makePlan(DATA, state.form_number, state.orientation);
+        await claimSession();
+        if (sessionLocked) return render();
+        logEvent('restored');
+        persist(); render();
+      };
+      document.getElementById('discard-session').onclick = async () => {
+        if (!(await askConfirmation('清除后将无法恢复本机已存进度。若已完成，请先下载结果。确定清除？'))) return;
+        try {localStorage.removeItem(storageKey);} catch {warnStorage();}
+        render();
+      };
+    }
+    document.getElementById('setup-form').onsubmit = async event => {
+      event.preventDefault();
+      if (saved) return;
+      const numberValue = document.getElementById('form-number').value;
+      const formNumber = numberValue === 'random' ? randomNumber(DATA.forms.length) + 1 : Number(numberValue);
+      const orientation = ['A','B'].includes(direction) ? direction : (randomNumber(2) ? 'B' : 'A');
+      const sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + '-' + randomNumber(1000000000).toString(36);
+      const participant = document.getElementById('participant-id').value.trim() || 'P-' + sessionId.slice(0,8);
+      const country = document.getElementById('country').value.trim();
+      if (!country) {document.getElementById('setup-error').textContent = '请填写国家或地区。'; return;}
+      plan = C.makePlan(DATA, formNumber, orientation);
+      state = {study_version: DATA.version, dataset_hash: DATA.dataset_hash, session_id: sessionId,
+        participant_id: participant, country, form_number: formNumber, orientation,
+        order_index: plan.orderIndex, dimension_order: plan.order, stage: 'intro', index: 0,
+        answers: [], events: [], created_at: new Date().toISOString(), started_at: null, finished_at: null,
+        active_total_ms: 0, current_active_ms: 0, current_shown_at: null, current_hidden_count: 0,
+        current_pause_count: 0, selected: null, paused: false};
+      await claimSession();
+      logEvent('created'); persist(); render();
+    };
+  }
+  function dimensionAt(index) {
+    return DATA.dimensions.find(d => d.code === plan.trials[index].dimension_code);
+  }
+  function showIntro() {
+    const dimension = dimensionAt(0);
+    app.innerHTML = `<section class="center-card"><span class="eyebrow">READY WHEN YOU ARE</span><h1>先认识当前的评价标准。</h1><p class="muted">问卷 ${String(state.form_number).padStart(2,'0')} · 共三个维度，每维16题。每题只比较当前维度的强弱。</p><div class="dimension-list">${plan.order.map(code => `<span>${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><h2>第一个维度：${dimension.name}</h2><p class="definition-large">${dimension.definition}</p><p class="rating-hint">三个选项统一表示左图相对右图：强于、差不多、弱于。选择后，再点击“下一题”。</p><button id="start-trials" class="button button-primary" type="button">开始本维度 →</button></section>`;
+    document.getElementById('start-trials').onclick = () => {
+      state.started_at = new Date().toISOString(); state.stage = 'trial';
+      logEvent('started'); persist(); render();
+    };
+  }
+  function showTrial() {
+    const trial = plan.trials[state.index];
+    const dimension = dimensionAt(state.index);
+    const token = renderId;
+    app.innerHTML = `<div class="progress-meta"><span>问卷 ${String(state.form_number).padStart(2,'0')} · 第 ${trial.dimension_position} / 3 个维度</span><span>已完成 ${state.answers.length} / 105 题</span></div><div class="progress-track" role="progressbar" aria-label="问卷进度" aria-valuenow="${state.answers.length}" aria-valuemin="0" aria-valuemax="105"><div class="progress-fill" style="width:${state.answers.length/105*100}%"></div></div><div class="dimension-tabs">${plan.order.map((code,i)=>`<span class="dimension-tab ${i+1===trial.dimension_position ? 'current' : i+1<trial.dimension_position ? 'done' : ''}">${i+1<trial.dimension_position ? '✓ ' : ''}${DATA.dimensions.find(d=>d.code===code).name}</span>`).join('')}</div><section aria-labelledby="trial-question"><div class="trial-heading"><div><h1 id="trial-question">左图的${dimension.name}，相比右图如何？</h1><p class="definition">${dimension.definition}</p></div><span class="trial-number">本维度 ${trial.dimension_trial_index} / 35</span></div><div class="image-grid">${[['left',trial.left_ui,'左图'],['right',trial.right_ui,'右图']].map(([side,ui,label])=>`<figure class="image-card"><figcaption><strong>${label} <span class="muted">· ${ui}</span></strong><span class="image-caption-hint">点击查看大图</span></figcaption><div class="image-stage"><img class="stimulus" id="${side}-image" alt="${label} ${ui}" tabindex="0" role="button" aria-label="放大${label} ${ui}"></div></figure>`).join('')}</div><div id="loading-status" class="loading-status" role="status">正在加载两张界面图…</div><div class="response-panel"><p class="response-prompt">以左图为参照，比较「${dimension.name}」</p><div class="choices" role="group" aria-label="三类比较">${C.SCALE.map((s,i)=>`<button class="choice" data-score="${s.score}" type="button" aria-pressed="${state.selected === s.score}" disabled aria-label="${s.label}">${s.short}<small>${i+1} · ${s.hint}</small></button>`).join('')}</div><div class="trial-actions"><p>快捷键 1—3 选择，Enter 确认。<br><span id="save-status" class="save-status">${storageWorking ? '进度自动保存在当前浏览器' : '本机保存不可用，请保持页面打开'}</span></p><button class="button button-primary" id="next-trial" type="button" disabled>${state.index === 104 ? '完成问卷' : trial.dimension_trial_index === 35 ? '完成本维度 →' : '下一题 →'}</button></div></div></section>`;
+    const images = [document.getElementById('left-image'), document.getElementById('right-image')];
+    let loaded = 0;
+    let failed = false;
+    function imageReady() {
+      if (token !== renderId || failed) return;
+      loaded++;
+      if (loaded !== 2) return;
+      lastTick = performance.now();
+      ready = true;
+      if (!state.current_shown_at) state.current_shown_at = new Date().toISOString();
+      document.getElementById('loading-status').textContent = '两图已加载 · 点击图片可放大';
+      document.querySelectorAll('.choice').forEach(b=>{b.disabled=false;});
+      document.getElementById('next-trial').disabled = state.selected === null;
+      persist();
+      const next = plan.trials[state.index+1];
+      if (next) for (const ui of [next.left_ui,next.right_ui]) {const image = new Image(); image.src = DATA.images[ui];}
+    }
+    function imageFailed() {
+      if (token !== renderId) return;
+      failed = true; ready = false;
+      document.getElementById('loading-status').innerHTML = '图片加载失败，请检查网络。 <button id="retry-images" class="button-link" type="button">重新加载</button>';
+      document.querySelectorAll('.choice').forEach(b=>{b.disabled=true;});
+      document.getElementById('next-trial').disabled = true;
+      document.getElementById('retry-images').onclick = () => {tick(); render();};
+    }
+    images.forEach((image,i) => {
+      image.onload = imageReady; image.onerror = imageFailed;
+      image.src = DATA.images[i === 0 ? trial.left_ui : trial.right_ui];
+      const zoom = () => {if (!ready) return; document.getElementById('zoom-image').src = image.src; zoomDialog.showModal();};
+      image.onclick = zoom;
+      image.onkeydown = event => {if (event.key === 'Enter' || event.key === ' ') {event.preventDefault(); event.stopPropagation(); zoom();}};
+    });
+    document.querySelectorAll('.choice').forEach(button => {button.onclick = () => selectScore(Number(button.dataset.score));});
+    document.getElementById('next-trial').onclick = nextTrial;
+  }
+  function selectScore(score) {
+    if (!running()) return;
+    tick(); state.selected = score;
+    document.querySelectorAll('.choice').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.score) === score)));
+    document.getElementById('next-trial').disabled = false;
+    persist();
+  }
+  function nextTrial() {
+    if (!running() || state.selected === null) return;
+    tick(); ready = false;
+    const trial = plan.trials[state.index];
+    const now = new Date().toISOString();
+    const row = {
+      study_version: DATA.version, dataset_hash: DATA.dataset_hash, session_id: state.session_id,
+      participant_id: state.participant_id, country: state.country,
+      questionnaire_id: 'F' + String(state.form_number).padStart(2,'0'), orientation: state.orientation,
+      dimension_order: state.dimension_order.join('>'), ...trial,
+      ...C.responseFields(trial,state.selected), active_time_ms: Math.round(state.current_active_ms),
+      elapsed_since_start_ms: Math.round(wallTime()), trial_started_at: state.current_shown_at,
+      answered_at: now, visibility_interruptions: state.current_hidden_count,
+      manual_pause_count: state.current_pause_count
+    };
+    state.answers.push(row); state.index++;
+    state.selected = null; state.current_active_ms = 0; state.current_shown_at = null;
+    state.current_hidden_count = 0; state.current_pause_count = 0;
+    if (state.index === 105) {state.stage = 'done'; state.finished_at = now; logEvent('finished');}
+    else if (state.index % 35 === 0) {state.stage = 'break'; logEvent('dimension_completed', {dimension: trial.dimension_code});}
+    else if (state.index % 35 === 18) {state.stage = 'microbreak'; logEvent('within_dimension_break', {dimension: trial.dimension_code});}
+    persist(); render();
+    app.focus({preventScroll:true});
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  function showBreak() {
+    const dim = dimensionAt(state.index);
+    const micro = state.stage === 'microbreak';
+    const completed = Math.floor(state.index / 35);
+    const heading = micro ? '本维度已完成18 / 35题。' : `已完成 ${completed} 个维度。`;
+    app.innerHTML = `<section class="center-card"><span class="eyebrow">A SHORT PAUSE</span><h1>${heading}</h1><p class="muted">可以休息片刻，再继续。休息期间不计入有效作答时间。</p><div class="break-stats"><div><span>已完成</span><strong>${state.index} / 105</strong></div><div><span>总用时</span><strong>${C.formatTime(wallTime())}</strong></div><div><span>有效作答</span><strong>${C.formatTime(state.active_total_ms)}</strong></div></div><h2>${micro ? '继续当前维度' : '下一个维度'}：${dim.name}</h2><p class="definition-large">${dim.definition}</p><button class="button button-primary" id="continue-block" type="button">准备好了，继续 →</button><p class="rating-hint" style="margin-top:18px">也可使用右上角“下载已答CSV”，只测试部分题目。</p></section>`;
+    document.getElementById('continue-block').onclick = () => {state.stage='trial';logEvent('break_ended');persist();render();};
+  }
+  function metadata() {
+    const dimensionSummary = state.dimension_order.map(code => ({
+      code, dimension: DATA.dimensions.find(d=>d.code===code).name,
+      trials: state.answers.filter(a=>a.dimension_code===code).length,
+      active_time_ms: state.answers.filter(a=>a.dimension_code===code).reduce((sum,a)=>sum+a.active_time_ms,0)
+    }));
+    return {study_version: DATA.version, dataset_hash: DATA.dataset_hash, session_id: state.session_id,
+      participant_id: state.participant_id, country: state.country, questionnaire_id: 'F' + String(state.form_number).padStart(2,'0'),
+      orientation: state.orientation, order_index: state.order_index, dimension_order: state.dimension_order,
+      created_at: state.created_at, started_at: state.started_at, finished_at: state.finished_at,
+      exported_at: new Date().toISOString(), completed: state.stage === 'done', total_responses: state.answers.length,
+      total_elapsed_ms: wallTime(), active_response_ms: Math.round(state.active_total_ms),
+      time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timing_note: '总用时包括休息、加载和离开页面；有效作答时间仅累计两图加载完成后、页面可见且未暂停的答题时间。刷新前最后约1秒可能未保存；不等同于眼动或注意力测量。',
+      scale_note: '三类分值为有序类别，正值表示左图更强，不应直接解释为等距测量。',
+      scale: C.SCALE.map(s=>({score_left:s.score,label:s.label})), dimensions: dimensionSummary};
+  }
+  function download(format) {
+    const base = 'UI试测3维35题_'  + state.form_number.toString().padStart(2,'0') + '_' + state.participant_id.replace(/[^a-zA-Z0-9_\u3400-\u9fff-]/g,'_').slice(0,40) + '_' + state.session_id.slice(0,8);
+    const completed = state.stage === 'done';
+    const elapsed = wallTime();
+    const exportRows = state.answers.map(row => ({...row,
+      '问卷是否完成': completed ? '是' : '否',
+      '完成用时（分秒）': completed ? C.formatTime(elapsed) : '',
+      '完成用时（秒）': completed ? Math.round(elapsed) / 1000 : '',
+      '完成时刻（本地）': state.finished_at ? new Date(state.finished_at).toLocaleString('zh-CN', {hour12:false}) : '',
+      '完成时刻（UTC）': state.finished_at || '',
+      '当前已用时（秒）': Math.round(elapsed) / 1000,
+      '有效作答用时（秒）': Math.round(state.active_total_ms) / 1000,
+      '本题用时（秒）': row.active_time_ms / 1000
+    }));
+    const text = format === 'csv' ? C.toCsv(exportRows) : JSON.stringify({metadata:metadata(), responses:state.answers, events:state.events}, null, 2);
+    const blob = new Blob([text], {type:format === 'csv' ? 'text/csv;charset=utf-8' : 'application/json;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href=url; link.download=base+'.'+format;
+    document.body.append(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),10000);
+    toast('已发起下载，请确认文件已保存；在手机浏览器中也可通过下载列表查看。');
+  }
+  function showDone() {
+    app.innerHTML = `<section class="center-card"><div class="completion-icon" aria-hidden="true">✓</div><span class="eyebrow">ALL COMPARISONS COMPLETE</span><h1>感谢，你已完成全部评价。</h1><p class="muted">问卷 ${String(state.form_number).padStart(2,'0')} · 参与者 ${escapeHtml(state.participant_id)} · ${escapeHtml(state.country)}</p><div class="result-stats"><div><span>完成题数</span><strong>105 / 105</strong></div><div><span>总用时</span><strong>${C.formatTime(wallTime())}</strong></div><div><span>有效作答</span><strong>${C.formatTime(state.active_total_ms)}</strong></div></div><p>请下载结果文件，并发送给研究者。</p><div class="actions"><button class="button button-primary" id="download-csv" type="button">下载 CSV 结果</button><button class="button" id="download-json" type="button">下载 JSON 完整记录</button></div><p class="download-note">CSV包含逐题答案和耗时，可用于整理数据；JSON另含总体计时、维度汇总和暂停记录。结果未自动上传，请确认文件已保存。</p><button id="new-session" class="button-link" type="button">下载后，开始另一份试测</button></section>`;
+    document.getElementById('download-csv').onclick = () => download('csv');
+    document.getElementById('download-json').onclick = () => download('json');
+    document.getElementById('new-session').onclick = async () => {
+      if (!(await askConfirmation('请确认已下载结果。开始另一份试测会清除当前浏览器中的这份记录。继续？'))) return;
+      try {localStorage.removeItem(storageKey);} catch {warnStorage();}
+      if (channel) channel.postMessage({type:'released',tabId,sessionId:state.session_id});
+      state=null; plan=null; render();
+    };
+  }
+  async function claimSession() {
+    // Avoid concurrent completion of the same local session in two tabs.
+    otherTabActive = false;
+    if (!channel || !state) return;
+    channel.postMessage({type:'claim',tabId,sessionId:state.session_id});
+    await new Promise(resolve=>setTimeout(resolve,160));
+    if (otherTabActive) sessionLocked=true;
+  }
+  if ('BroadcastChannel' in window) {
+    channel = new BroadcastChannel(storageKey);
+    channel.onmessage = ({data}) => {
+      if (!state || data.tabId === tabId || data.sessionId !== state.session_id) return;
+      if (data.type === 'claim' && !sessionLocked) channel.postMessage({type:'occupied',tabId,sessionId:state.session_id,target:data.tabId});
+      else if (data.type === 'occupied' && data.target === tabId) otherTabActive=true;
+    };
+  }
+  document.getElementById('pause-button').onclick = () => {
+    if (!state || state.stage !== 'trial' || state.paused || sessionLocked) return;
+    tick(); state.paused = true; state.current_pause_count++;
+    logEvent('paused'); persist(); pauseDialog.showModal();
+  };
+  function resume() {
+    if (!state || sessionLocked) return;
+    tick(); state.paused = false; lastTick = performance.now();
+    logEvent('resumed'); persist(); pauseDialog.close();
+  }
+  document.getElementById('resume-button').onclick = resume;
+  pauseDialog.addEventListener('cancel',event=>{event.preventDefault(); resume();});
+  document.getElementById('close-zoom').onclick = ()=>zoomDialog.close();
+  document.addEventListener('keydown',event=>{
+    if (event.repeat || !running() || pauseDialog.open || zoomDialog.open || ['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
+    if (/^[1-3]$/.test(event.key)) {event.preventDefault(); selectScore(C.SCALE[Number(event.key)-1].score);}
+    else if (event.key === 'Enter') {event.preventDefault(); nextTrial();}
+  });
+  document.addEventListener('visibilitychange',()=>{
+    // Account for the interval ending at the visibility transition using the previous state.
+    const now = performance.now();
+    if (document.hidden && state?.stage === 'trial' && ready && !state.paused && !sessionLocked) {
+      const delta = Math.max(0,now-lastTick); state.current_active_ms+=delta; state.active_total_ms+=delta;
+      state.current_hidden_count++; logEvent('page_hidden');
+    } else if (!document.hidden && state) logEvent('page_visible');
+    lastTick=now; persist();
+  });
+  window.addEventListener('pagehide',()=>{tick(); persist();});
+  window.addEventListener('beforeunload',()=>{tick();persist();});
+  document.querySelector('.brand').onclick = event=>{
+    if (state) {event.preventDefault(); toast('当前问卷进行中；请完成后下载结果，或在刷新后的首页管理进度。');}
+  };
+  if (!DATA || !C) {
+    app.innerHTML='<section class="center-card"><h2>问卷文件未完整加载</h2><p>请确认 data.js、core.js 和 app.js 与网页一起上传，然后刷新重试。</p></section>';
+    return;
+  }
+  render();
+  setInterval(tick,250);
+})();
+</script>
+</body>
+</html>

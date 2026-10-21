@@ -254,7 +254,19 @@
   }
   function download(format) {
     const base = 'UI感知_' + state.form_number.toString().padStart(2,'0') + '_' + state.participant_id.replace(/[^a-zA-Z0-9_\u3400-\u9fff-]/g,'_').slice(0,40) + '_' + state.session_id.slice(0,8);
-    const text = format === 'csv' ? C.toCsv(state.answers) : JSON.stringify({metadata:metadata(), responses:state.answers, events:state.events}, null, 2);
+    const completed = state.stage === 'done';
+    const elapsed = wallTime();
+    const exportRows = state.answers.map(row => ({...row,
+      '问卷是否完成': completed ? '是' : '否',
+      '完成用时（分秒）': completed ? C.formatTime(elapsed) : '',
+      '完成用时（秒）': completed ? Math.round(elapsed) / 1000 : '',
+      '完成时刻（本地）': state.finished_at ? new Date(state.finished_at).toLocaleString('zh-CN', {hour12:false}) : '',
+      '完成时刻（UTC）': state.finished_at || '',
+      '当前已用时（秒）': Math.round(elapsed) / 1000,
+      '有效作答用时（秒）': Math.round(state.active_total_ms) / 1000,
+      '本题用时（秒）': row.active_time_ms / 1000
+    }));
+    const text = format === 'csv' ? C.toCsv(exportRows) : JSON.stringify({metadata:metadata(), responses:state.answers, events:state.events}, null, 2);
     const blob = new Blob([text], {type:format === 'csv' ? 'text/csv;charset=utf-8' : 'application/json;charset=utf-8'});
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href=url; link.download=base+'.'+format;
