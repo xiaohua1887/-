@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <title>界面感知评价 · 两图比较</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./data.js"></script>
+  <script defer src="./core.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="问卷首页"><span class="brand-mark">◫</span><span>界面感知评价<small>INTERFACE PERCEPTION STUDY</small></span></a>
+    <div class="session-tools" id="session-tools" hidden>
+      <div class="clock"><span>总用时</span><strong id="wall-clock">00:00</strong></div>
+      <div class="clock secondary-clock"><span>有效作答</span><strong id="active-clock">00:00</strong></div>
+      <button id="pause-button" class="button button-quiet" type="button">暂停休息</button>
+    </div>
+  </header>
+  <main id="app" tabindex="-1"></main>
+  <footer class="site-footer"><span>两图比较 · 六个感知维度</span><span>请根据视觉印象判断，无标准答案</span></footer>
+  <dialog id="pause-dialog" class="modal"><div class="modal-content"><span class="eyebrow">TAKE A BREAK</span><h2>休息一下，再继续。</h2><p>暂停期间不计入有效作答时间；总用时仍会继续。</p><p class="muted">进度保存在当前浏览器中。</p><button id="resume-button" class="button button-primary" type="button">继续作答</button></div></dialog>
+  <dialog id="zoom-dialog" class="zoom-dialog"><button id="close-zoom" class="button zoom-close" type="button">关闭大图 ×</button><img id="zoom-image" alt="界面放大图"></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript>此问卷需要启用浏览器的 JavaScript 才能作答。</noscript>
+</body>
+</html>
