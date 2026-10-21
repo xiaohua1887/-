@@ -2,12 +2,19 @@
 (function (root) {
   'use strict';
   const SCALE = [
-    {score: 2, label: '左图远强于右图', short: '左图远强', hint: '明显更强'},
-    {score: 1, label: '左图强于右图', short: '左图更强', hint: '程度较强'},
-    {score: 0, label: '两图感知强度相近', short: '两图相近', hint: '强度相似'},
-    {score: -1, label: '右图强于左图', short: '右图更强', hint: '程度较强'},
-    {score: -2, label: '右图远强于左图', short: '右图远强', hint: '明显更强'}
+    {score: 1, label: '左图更符合当前描述', short: '左图', hint: '选择左图'},
+    {score: 0, label: '两图差不多', short: '差不多', hint: '两图相近'},
+    {score: -1, label: '右图更符合当前描述', short: '右图', hint: '选择右图'}
   ];
+  const DIMENSION_WORDING = {
+    consistency:'更一致', vitality:'更有活力', fun:'更有趣',
+    technology:'更有科技感', trendiness:'更新潮', premium:'更高级'
+  };
+  function comparisonLabel(code, score) {
+    if (!DIMENSION_WORDING[code] || !SCALE.some(s=>s.score===score)) throw new Error('无效的比较答案');
+    return score === 0 ? '两图差不多' : (score === 1 ? '左图' : '右图') + DIMENSION_WORDING[code];
+  }
+  function dimensionQuestion(code) {return '哪张界面看起来' + DIMENSION_WORDING[code] + '？';}
   function makePlan(data, formNumber, orientation) {
     const form = data.forms.find(f => f.number === Number(formNumber));
     if (!form || !['A', 'B'].includes(orientation)) throw new Error('无效的问卷编号或呈现方向');
@@ -34,12 +41,12 @@
     return {orderIndex, order: order.map(i => data.dimensions[i].code), trials};
   }
   function responseFields(trial, score) {
-    if (!SCALE.some(s => s.score === score)) throw new Error('无效的五级答案');
+    if (!SCALE.some(s => s.score === score)) throw new Error('无效的三类答案');
     return {
       response_score_left: score,
       score_for_base_left: score * (trial.left_ui === trial.base_left_ui ? 1 : -1),
       score_for_canonical_ui_1: score * (trial.left_ui === trial.canonical_ui_1 ? 1 : -1),
-      response_label: SCALE.find(s => s.score === score).label
+      response_label: comparisonLabel(trial.dimension_code, score)
     };
   }
   function csvCell(value) {
@@ -58,5 +65,5 @@
     const minutes = Math.floor(seconds / 60);
     return (minutes < 100 ? String(minutes).padStart(2, '0') : String(minutes)) + ':' + String(seconds % 60).padStart(2, '0');
   }
-  root.QuestionnaireCore = {SCALE, makePlan, responseFields, toCsv, formatTime};
+  root.QuestionnaireCore = {SCALE, comparisonLabel, dimensionQuestion, makePlan, responseFields, toCsv, formatTime};
 })(typeof window === 'undefined' ? globalThis : window);
